@@ -31,6 +31,16 @@ module I18n
       @@default_locale = locale.to_sym rescue nil
     end
 
+    # Returns the current default currency. Defaults to :'euro'
+    def default_currency
+      @@default_locale ||= :euro
+    end
+
+    # Sets the current default currency. Used to set a custom default currency.
+    def default_currency=(currency)
+      @@default_currency = currency.to_sym rescue nil
+    end
+
     # Returns an array of locales for which translations are available.
     # Unless you explicitely set these through I18n.available_locales=
     # the call will be delegated to the backend.
@@ -43,6 +53,17 @@ module I18n
     def available_locales=(locales)
       @@available_locales = Array(locales).map { |locale| locale.to_sym }
       @@available_locales = nil if @@available_locales.empty?
+    end
+
+    # Returns an array of currencies available.
+    def available_currencies
+      @@available_currencies ||= nil
+    end
+
+    # Sets the available currencies.
+    def available_currencies=(currencies)
+      @@available_currencies = Array(currencies).map { |currency| currency.to_sym }
+      @@available_currencies = nil if @@available_currencies.empty?
     end
 
     # Returns the current default scope separator. Defaults to '.'
